@@ -9,33 +9,29 @@ function createServer(port) {
   let state = 10;
 
   const server = http.createServer((request, response) => {
-    const data = {
-      state: state,
-    };
+    // const data = {
+    //   state: state,
+    // };
 
     if (request.method === 'GET') {
-      if (request.url === '/state') {
+      if (request.url === '/state' || request.url === '/') {
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(data));
-        // return state;
+        response.end(JSON.stringify({ state }));
       } else if (request.url === '/add') {
-        data.state++;
+        state++;
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(data));
-        // return state;
+        response.end(JSON.stringify({ state }));
       } else if (request.url === '/subtract') {
-        data.state--;
+        state--;
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(data));
-        // return state;
+        response.end(JSON.stringify({ state }));
       } else if (request.url === '/reset') {
-        data.state = 10;
+        state = 10;
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(data));
-        // return state;
+        response.end(JSON.stringify({ state }));
       } else {
         response.writeHead(404, { 'Content-Type': 'application/json' });
-        response.end(`${response.statusCode} Not Found`);
+        response.end(JSON.stringify({ error: 'Not found' }));
       }
     }
   });
