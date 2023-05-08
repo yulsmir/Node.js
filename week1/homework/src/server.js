@@ -9,10 +9,6 @@ function createServer(port) {
   let state = 10;
 
   const server = http.createServer((request, response) => {
-    // const data = {
-    //   state: state,
-    // };
-
     if (request.method === 'GET') {
       if (request.url === '/state' || request.url === '/') {
         response.writeHead(200, { 'Content-Type': 'application/json' });
